@@ -1,6 +1,6 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "description": "Shared Renovate preset for barnes-c repositories.",
+    "description": "Shared Renovate preset for my repositories.",
     "extends": [
         "config:recommended",
         ":semanticCommits",
@@ -11,6 +11,8 @@
     ],
     "pinDigests": true,
     "platformAutomerge": true,
+    "osvVulnerabilityAlerts": true,
+    "minimumReleaseAge": "1 day",
     "customManagers": [
         {
             "description": "Container images run via `docker run` in workflow scripts, which the github-actions manager does not parse.",
@@ -26,12 +28,10 @@
     ],
     "packageRules": [
         {
-            "description": "Automerge patches once they have been public for 3 days.",
             "matchUpdateTypes": [
                 "patch"
             ],
-            "automerge": true,
-            "minimumReleaseAge": "3 days"
+            "automerge": true
         },
         {
             "matchManagers": [

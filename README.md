@@ -9,4 +9,4 @@ Shared [Renovate](https://docs.renovatebot.com/) preset for my repositories.
 }
 ```
 
-A consuming repo's own `packageRules` are applied after the preset's, so they override it (e.g. a shorter `minimumReleaseAge` for patches).
+A consuming repo's own `packageRules` are applied after the preset's, so they override it (e.g. a longer `minimumReleaseAge` for a risky package).
