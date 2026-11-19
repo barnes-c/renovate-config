@@ -2,9 +2,8 @@
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "description": "Shared Renovate preset for my repositories.",
     "extends": [
-        "config:recommended",
-        ":semanticCommits",
-        "helpers:pinGitHubActionDigests"
+        "config:best-practices",
+        ":semanticCommits"
     ],
     "labels": [
         "dependencies"
@@ -29,9 +28,22 @@
     "packageRules": [
         {
             "matchUpdateTypes": [
-                "patch"
+                "patch",
+                "digest",
+                "pin",
+                "pinDigest"
             ],
             "automerge": true
+        },
+        {
+            "matchManagers": [
+                "bun",
+                "npm"
+            ],
+            "matchDepTypes": [
+                "devDependencies"
+            ],
+            "groupName": "dev dependencies"
         },
         {
             "matchManagers": [
