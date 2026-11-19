@@ -1,0 +1,49 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "description": "Shared Renovate preset for barnes-c repositories.",
+    "extends": [
+        "config:recommended",
+        ":semanticCommits",
+        "helpers:pinGitHubActionDigests"
+    ],
+    "labels": [
+        "dependencies"
+    ],
+    "pinDigests": true,
+    "platformAutomerge": true,
+    "customManagers": [
+        {
+            "description": "Container images run via `docker run` in workflow scripts, which the github-actions manager does not parse.",
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/^\\.github/workflows/.+\\.ya?ml$/"
+            ],
+            "matchStrings": [
+                "(?<depName>(?:docker\\.io|ghcr\\.io)/[a-z0-9._/-]+):(?<currentValue>[A-Za-z0-9._-]+)(?:@(?<currentDigest>sha256:[a-f0-9]{64}))?"
+            ],
+            "datasourceTemplate": "docker"
+        }
+    ],
+    "packageRules": [
+        {
+            "description": "Automerge patches once they have been public for 3 days.",
+            "matchUpdateTypes": [
+                "patch"
+            ],
+            "automerge": true,
+            "minimumReleaseAge": "3 days"
+        },
+        {
+            "matchManagers": [
+                "github-actions"
+            ],
+            "groupName": "github-actions"
+        },
+        {
+            "matchManagers": [
+                "dockerfile"
+            ],
+            "groupName": "docker base images"
+        }
+    ]
+}
