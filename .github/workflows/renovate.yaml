@@ -1,0 +1,28 @@
+---
+name: Renovate
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: renovate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  renovate:
+    name: Renovate Config Validation
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Validate config
+        shell: bash
+        env:
+          RENOVATE_IMAGE: ghcr.io/renovatebot/renovate:44.252.6@sha256:a5db2980cdc3339bb6af11c5c5f46f5b561c821f69b9bcb5607c19d02078ea2e
+        run: |
+          docker run --rm -v "$PWD:/work:ro" -w /work --entrypoint renovate-config-validator "$RENOVATE_IMAGE" \
+            --strict --no-global default.json .github/renovate.json
