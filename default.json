@@ -12,6 +12,7 @@
     "platformAutomerge": true,
     "osvVulnerabilityAlerts": true,
     "minimumReleaseAge": "1 day",
+    "internalChecksFilter": "none",
     "customManagers": [
         {
             "description": "Container images run via `docker run` in workflow scripts, which the github-actions manager does not parse.",
